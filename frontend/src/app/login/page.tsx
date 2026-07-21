@@ -27,6 +27,8 @@ export default function LoginPage() {
       const res = await apiClient.post<{ accessToken: string; user: Record<string, unknown> }>(
         '/auth/login', { email, password },
       );
+      // Set the token as a cookie on the frontend domain so Next.js middleware can read it
+      document.cookie = `access_token=${res.accessToken}; path=/; max-age=3600; Secure; SameSite=Lax`;
       login(res.user as any);
     } catch (err: unknown) {
       const error = err as { message?: string };

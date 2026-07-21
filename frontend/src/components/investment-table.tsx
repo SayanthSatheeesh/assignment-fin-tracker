@@ -19,7 +19,7 @@ export function InvestmentTable({ investments, loading, onEdit, onDelete }: Inve
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="border-b border-hairline text-muted text-[12px] font-semibold uppercase tracking-wide">
+          <tr className="border-b border-hairline text-muted-foreground text-[12px] font-semibold uppercase tracking-wide">
             <th className="py-4 px-6">Name</th>
             <th className="py-4 px-6">Type</th>
             <th className="py-4 px-6 text-right">Invested</th>
@@ -32,7 +32,7 @@ export function InvestmentTable({ investments, loading, onEdit, onDelete }: Inve
         <tbody>
           {!loading && investments.length === 0 && (
             <tr>
-              <td colSpan={7} className="text-center py-12 text-muted-soft text-body-md">
+              <td colSpan={7} className="text-center py-12 text-muted-foreground text-body-md">
                 No investments found.
               </td>
             </tr>
@@ -55,10 +55,10 @@ export function InvestmentTable({ investments, loading, onEdit, onDelete }: Inve
                 </td>
                 <td className="py-3 px-6 text-body-sm text-body-text">{inv.purchaseDate.split('T')[0]}</td>
                 <td className="py-3 px-6 text-right whitespace-nowrap">
-                  <button onClick={() => onEdit(inv)} className="p-2 text-muted hover:text-primary transition-colors inline-block" aria-label="Edit">
+                  <button onClick={() => onEdit(inv)} className="p-2 text-muted-foreground hover:text-primary transition-colors inline-block" aria-label="Edit">
                     <Edit2 className="w-5 h-5" />
                   </button>
-                  <button onClick={() => onDelete(inv.id)} className="p-2 text-muted hover:text-semantic-down transition-colors inline-block ml-1" aria-label="Delete">
+                  <button onClick={() => onDelete(inv.id)} className="p-2 text-muted-foreground hover:text-semantic-down transition-colors inline-block ml-1" aria-label="Delete">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </td>

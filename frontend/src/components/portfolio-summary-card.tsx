@@ -11,7 +11,7 @@ function StatCard({
 
   return (
     <div className="flex-1 bg-canvas border border-hairline rounded-xl p-8">
-      <p className="text-muted text-[12px] font-semibold uppercase tracking-wider mb-2">
+      <p className="text-muted-foreground text-[12px] font-semibold uppercase tracking-wider mb-2">
         {label}
       </p>
       <p className={`font-mono text-[28px] font-medium tabular-nums ${profitColor}`}>

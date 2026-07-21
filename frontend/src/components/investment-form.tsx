@@ -67,7 +67,7 @@ export function InvestmentForm({ isOpen, onClose, mode, initialValues, onSubmit 
             <label className="text-body-text text-body-sm mb-1.5 block">Investment Name</label>
             <input
               {...register('investmentName')}
-              className="w-full h-12 px-4 rounded-md bg-canvas border border-hairline text-ink text-body-md focus:outline-none focus:border-2 focus:border-primary transition-colors"
+              className="w-full h-12 px-4 rounded-md bg-canvas border border-hairline text-ink text-body-md focus:outline-none focus:border-2 focus:border-primary transition-colors placeholder:text-muted-foreground/70"
               placeholder="e.g. Apple Inc."
             />
             {errors.investmentName && <p className="text-semantic-down text-sm mt-1">{errors.investmentName.message}</p>}
@@ -76,7 +76,7 @@ export function InvestmentForm({ isOpen, onClose, mode, initialValues, onSubmit 
             <label className="text-body-text text-body-sm mb-1.5 block">Type</label>
             <input
               {...register('investmentType')}
-              className="w-full h-12 px-4 rounded-md bg-canvas border border-hairline text-ink text-body-md focus:outline-none focus:border-2 focus:border-primary transition-colors"
+              className="w-full h-12 px-4 rounded-md bg-canvas border border-hairline text-ink text-body-md focus:outline-none focus:border-2 focus:border-primary transition-colors placeholder:text-muted-foreground/70"
               placeholder="e.g. Stock, Crypto"
             />
             {errors.investmentType && <p className="text-semantic-down text-sm mt-1">{errors.investmentType.message}</p>}
@@ -85,7 +85,7 @@ export function InvestmentForm({ isOpen, onClose, mode, initialValues, onSubmit 
             <div className="flex-1">
               <label className="text-body-text text-body-sm mb-1.5 block">Invested Amount</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-mono">$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-mono">$</span>
                 <input
                   type="number" step="0.01" min="0"
                   {...register('investedAmount')}
@@ -97,7 +97,7 @@ export function InvestmentForm({ isOpen, onClose, mode, initialValues, onSubmit 
             <div className="flex-1">
               <label className="text-body-text text-body-sm mb-1.5 block">Current Value</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-mono">$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-mono">$</span>
                 <input
                   type="number" step="0.01" min="0"
                   {...register('currentValue')}

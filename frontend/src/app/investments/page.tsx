@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, Plus } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
 import { apiClient } from '@/lib/api-client';
 import { PortfolioSummaryCard } from '@/components/portfolio-summary-card';
 import { PaginationControls } from '@/components/pagination-controls';
@@ -20,6 +22,8 @@ import {
 } from '@/components/ui/alert-dialog';
 
 export default function InvestmentsPage() {
+  const { user, isLoading: authLoading } = useAuth();
+  const router = useRouter();
   const [summary, setSummary] = useState<PortfolioSummary | null>(null);
   const [investments, setInvestments] = useState<Investment[]>([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -35,6 +39,13 @@ export default function InvestmentsPage() {
   // Delete state
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  // Client-side route guard — redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.replace('/login');
+    }
+  }, [authLoading, user, router]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -108,6 +119,15 @@ export default function InvestmentsPage() {
     }
   };
 
+  // Show a loading screen while auth state hydrates from localStorage
+  if (authLoading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-surface-soft">
+        <div className="animate-spin rounded-full h-10 w-10 border-4 border-primary border-t-transparent" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-surface-soft pb-24">
       {/* Light hero header */}
@@ -124,13 +144,13 @@ export default function InvestmentsPage() {
         <div className="p-6 border-b border-hairline flex flex-col md:flex-row gap-4 justify-between items-center bg-canvas">
           <div className="flex gap-4 w-full md:w-auto">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
                 type="text"
                 placeholder="Search..."
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-                className="bg-surface-strong text-ink text-body-md rounded-pill pl-12 pr-5 h-11 border-none focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-64 transition-shadow"
+                className="bg-surface-strong text-ink text-body-md rounded-pill pl-12 pr-5 h-11 border-none focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-64 transition-shadow placeholder:text-muted-foreground/70"
               />
             </div>
             <input
@@ -138,7 +158,7 @@ export default function InvestmentsPage() {
               placeholder="Filter by type"
               value={investmentType}
               onChange={(e) => { setInvestmentType(e.target.value); setPage(1); }}
-              className="bg-surface-strong text-ink text-body-md rounded-pill px-5 h-11 border-none focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-48 transition-shadow hidden sm:block"
+              className="bg-surface-strong text-ink text-body-md rounded-pill px-5 h-11 border-none focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-48 transition-shadow hidden sm:block placeholder:text-muted-foreground/70"
             />
           </div>
           <button

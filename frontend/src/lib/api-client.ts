@@ -1,11 +1,18 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
+const BASE_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 async function request<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
+  let token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+  if (!token && typeof window !== 'undefined') {
+    const match = document.cookie.match(new RegExp('(^| )access_token=([^;]+)'));
+    if (match) token = match[2];
+  }
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   };
 
@@ -25,7 +32,13 @@ async function request<T>(
   }
 
   if (response.status === 204) return undefined as T;
-  return response.json() as Promise<T>;
+  
+  const json = await response.json();
+  // Automatically unwrap NestJS TransformInterceptor response
+  if (json && typeof json === 'object' && 'data' in json && 'timestamp' in json && Object.keys(json).length <= 3) {
+    return json.data as T;
+  }
+  return json as T;
 }
 
 export const apiClient = {

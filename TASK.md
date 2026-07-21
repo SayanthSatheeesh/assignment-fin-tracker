@@ -342,7 +342,7 @@
 
 ## PHASE 8: Docker
 
-- [ ] Write `backend/Dockerfile`:
+- [x] Write `backend/Dockerfile`:
   ```dockerfile
   FROM node:20-alpine AS deps
   WORKDIR /app
@@ -362,49 +362,49 @@
   EXPOSE 3000
   CMD ["node", "dist/main"]
   ```
-- [ ] Write `frontend/Dockerfile` (Next.js standalone output)
-- [ ] `docker build -t portfolio-backend ./backend` succeeds
-- [ ] `docker build -t portfolio-frontend ./frontend` succeeds
-- [ ] `docker compose up` brings up full stack locally
+- [x] Write `frontend/Dockerfile` (Next.js standalone output)
+- [x] `docker build -t portfolio-backend ./backend` succeeds
+- [x] `docker build -t portfolio-frontend ./frontend` succeeds
+- [x] `docker compose up` brings up full stack locally
 
 ---
 
 ## PHASE 9: Deployment
 
 ### 9.1 Backend (Render or Railway)
-- [ ] Connect repo to Render/Railway
-- [ ] Set environment variables:
+- [x] Connect repo to Render/Railway
+- [x] Set environment variables:
   - `DATABASE_URL` — Neon pooled connection string
   - `JWT_SECRET` — strong random secret (32+ chars)
   - `PORT` — 3000
   - `FRONTEND_URL` — Vercel deployed URL
-- [ ] Confirm build succeeds on platform
-- [ ] Run migrations via deploy hook or manual `npm run migration:run`
-- [ ] Test `GET /health` or `GET /` returns 200
-- [ ] Copy backend URL
+- [x] Confirm build succeeds on platform
+- [x] Run migrations via deploy hook or manual `npm run migration:run`
+- [x] Test `GET /health` or `GET /` returns 200
+- [x] Copy backend URL
 
 ### 9.2 Frontend (Vercel)
-- [ ] Import GitHub repo in Vercel
-- [ ] Set `NEXT_PUBLIC_API_URL` to deployed backend URL
-- [ ] Deploy
-- [ ] Test login from live URL → CORS works
-- [ ] Full E2E smoke test on live URLs
+- [x] Import GitHub repo in Vercel
+- [x] Set `NEXT_PUBLIC_API_URL` to deployed backend URL
+- [x] Deploy
+- [x] Test login from live URL → CORS works
+- [x] Full E2E smoke test on live URLs
 
 ### 9.3 Smoke Test Checklist
-- [ ] Register a new user on live site
-- [ ] Login with that user
-- [ ] Add 15 investments
-- [ ] Verify pagination shows correct `totalPages`
-- [ ] Edit an investment
-- [ ] Delete an investment
-- [ ] Portfolio summary updates correctly
-- [ ] Second account cannot see first account's data
+- [x] Register a new user on live site
+- [x] Login with that user
+- [x] Add 15 investments
+- [x] Verify pagination shows correct `totalPages`
+- [x] Edit an investment
+- [x] Delete an investment
+- [x] Portfolio summary updates correctly
+- [x] Second account cannot see first account's data
 
 ---
 
 ## PHASE 10: README & Submission
 
-- [ ] Write `README.md`:
+- [x] Write `README.md`:
   - Section 1: Project overview (1 paragraph)
   - Section 2: Local setup (step by step, fresh clone assumed)
   - Section 3: Environment variables (full list, backend + frontend)
@@ -412,6 +412,6 @@
   - Section 5: Migration instructions (`npm run migration:run`)
   - Section 6: Known limitations (JWT-only, localStorage vs cookie, no real-time prices)
   - Section 7: Live deployment links
-- [ ] GitHub repo: set to public
-- [ ] Final check: all Phase 1–9 tasks checked ✅
-- [ ] Submit before 4:00 PM deadline ✅
+- [x] GitHub repo: set to public
+- [x] Final check: all Phase 1–9 tasks checked ✅
+- [x] Submit before 4:00 PM deadline ✅

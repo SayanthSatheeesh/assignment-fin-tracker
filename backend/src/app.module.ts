@@ -7,8 +7,15 @@ import { UsersModule } from './users/users.module';
 import { InvestmentsModule } from './investments/investments.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
 
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+
 @Module({
   imports: [
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 100,
+    }]),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
@@ -22,7 +29,7 @@ import { PortfolioModule } from './portfolio/portfolio.module';
           ? { rejectUnauthorized: false }
           : false,
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-        migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
+        // migrations are managed via `npm run migration:run` — never loaded at runtime
         synchronize: false, // NEVER change this
         logging: config.get<string>('NODE_ENV') === 'development',
       }),
@@ -31,6 +38,12 @@ import { PortfolioModule } from './portfolio/portfolio.module';
     UsersModule,
     InvestmentsModule,
     PortfolioModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

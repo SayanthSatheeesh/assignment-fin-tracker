@@ -1,7 +1,106 @@
+# ==============================================================================
+# SECURE FULL-STACK MONOREPO .GITIGNORE
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Dependency Directories
+# ------------------------------------------------------------------------------
 node_modules/
-dist/
-.next/
+.pnp
+.pnp.js
+
+# ------------------------------------------------------------------------------
+# 2. Environment Variables & Secrets (CRITICAL SECURITY)
+# ------------------------------------------------------------------------------
+# NEVER commit environment files containing sensitive credentials, API keys, or JWT secrets.
 .env
-*.env.local
-.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.pem
+*.key
+*.cert
+*.cert.pem
+# (Allow `.env.example` to be committed as a template)
+
+# ------------------------------------------------------------------------------
+# 3. Build & Compiled Outputs
+# ------------------------------------------------------------------------------
+# Backend (NestJS)
+dist/
+/backend/dist/
+build/
 coverage/
+.nyc_output/
+
+# Frontend (Next.js)
+.next/
+/frontend/.next/
+out/
+/frontend/out/
+build/
+/frontend/build/
+
+# ------------------------------------------------------------------------------
+# 4. Logs and Diagnostic Files
+# ------------------------------------------------------------------------------
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ------------------------------------------------------------------------------
+# 5. OS Generated & Editor/IDE Files
+# ------------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDEs
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.vscode/
+
+# ------------------------------------------------------------------------------
+# 6. Database & Miscellaneous
+# ------------------------------------------------------------------------------
+# Ignore SQLite files or any local SQL dumps
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+*.s3db
+*.sql
+
+# Next.js telemetry & cache
+.vercel
+/frontend/.vercel
+.next/cache/
+/frontend/.next/cache/
+
+# Agent/AI artifacts
+.gemini/
+.claude/

@@ -12,8 +12,7 @@ export const AppDataSource = new DataSource({
     : false,
   entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
   migrations: [join(__dirname, '..', '..', 'migrations', '*.{ts,js}')],
+  // migrations folder is at backend/migrations/ (one level above src/)
   synchronize: false,
   logging: process.env.NODE_ENV === 'development',
 });
-
-export default AppDataSource;
